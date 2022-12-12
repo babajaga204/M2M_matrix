@@ -8,6 +8,7 @@ import {
   Button,
   Platform,
   StatusBar,
+  SafeAreaView,
 } from "react-native";
 import Slider from "@react-native-community/slider";
 import MQTT from "@openrc/react-native-mqtt";
@@ -103,59 +104,75 @@ function Dashboard({ navigation, route }) {
 
   const [text, onChangeText] = React.useState("Text to display on matrix");
   const [number, onChangeNumber] = React.useState(null);
-  const [redValue, setRedValue] = useState("50%");
-  const [greenValue, setGreenValue] = useState("50%");
-  const [blueValue, setBlueValue] = useState("50%");
+  const [redValue, setRedValue] = useState(100);
+  const [greenValue, setGreenValue] = useState(100);
+  const [blueValue, setBlueValue] = useState(100);
   return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={require("../assets/nTeater.png")} />
-      <View style={styles.textInput}>
+    <SafeAreaView className='bg-slate-700 h-full pt-0'>
+      <View className='flex flex-1 justify-start items-center bg-slate-700'>
+        <Image resizeMode='contain' className='h-64 w-full mt-0 mb-0 opacity-5 scale-75 tanslate-y-[-20]' source={require("../assets/nTeater.png")} />
         <TextInput
-          style={styles.input}
+          className='w-9/12 rounded-xl bg-slate-200 p-4 mt-0'
+          // style={styles.input}
           onChangeText={onChangeText}
           value={text}
           placeholder="Text to display on matrix"
         />
-      </View>
-      <View style={styles.sliderStyle}>
-        <Slider
-          style={{ width: 250, height: 40 }}
-          minimumValue={0}
-          maximumValue={255}
-          step={1}
-          value={redValue}
-          onValueChange={(redValue) => setRedValue(redValue)}
-        />
-        <Slider
-          style={{ width: 250, height: 40 }}
-          minimumValue={0}
-          maximumValue={255}
-          step={1}
-          value={greenValue}
-          onValueChange={(greenValue) => setGreenValue(greenValue)}
-        />
-        <Slider
-          style={{ width: 250, height: 40 }}
-          minimumValue={0}
-          maximumValue={255}
-          step={1}
-          value={blueValue}
-          onValueChange={(blueValue) => setBlueValue(blueValue)}
-        />
-        <Button
-          title="Upload text"
-          onPress={() =>
-            publishToMqtt(
-              "public/test",
-              text.toString(),
-              redValue.toString(),
-              greenValue.toString(),
-              blueValue.toString()
-            )
-          }
-        />
-      </View>
-    </View>
+        <View
+          // style={styles.sliderStyle}
+          className='mt-8 w-full px-8'>
+          <View className='flex flex-row items-center'>
+            <Slider
+              style={{ width: 250, height: 40 }}
+              minimumValue={0}
+              maximumValue={255}
+              step={1}
+              value={redValue}
+              onValueChange={(redValue) => setRedValue(redValue)}
+            />
+            <Text className='text-slate-50 ml-4'>R: {redValue}</Text>
+          </View>
+          <View className='flex flex-row items-center'>
+            <Slider
+              style={{ width: 250, height: 40 }}
+              minimumValue={0}
+              maximumValue={255}
+              step={1}
+              value={greenValue}
+              onValueChange={(greenValue) => setGreenValue(greenValue)}
+            />
+            <Text className='text-slate-50 ml-4'>G: {greenValue}</Text>
+          </View>
+          <View className='flex flex-row items-center'>
+            <Slider
+              style={{ width: 250, height: 40 }}
+              minimumValue={0}
+              maximumValue={255}
+              step={1}
+              value={blueValue}
+              onValueChange={(blueValue) => setBlueValue(blueValue)}
+            />
+            <Text className='text-slate-50 ml-4'>B: {blueValue}</Text>
+          </View>
+          <View className='mt-8 flex flex-row justify-between'>
+            <Button
+              title="Upload text"
+              onPress={() =>
+                publishToMqtt(
+                  "public/test",
+                  text.toString(),
+                  redValue.toString(),
+                  greenValue.toString(),
+                  blueValue.toString()
+                )
+              }
+            />
+            <Button title='Images' onPress={() => { console.log(blueValue, redValue, greenValue) }}
+            />
+          </View>
+        </View>
+      </View >
+    </SafeAreaView>
   );
 }
 
@@ -171,11 +188,13 @@ function publishToMqtt(topic, msg, r, g, b) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
     backgroundColor: "#263238",
   },
   image: {
     opacity: 0.06,
+    height: 400,
+    width: 400,
   },
   textInput: {
     border: 1,
@@ -184,13 +203,11 @@ const styles = StyleSheet.create({
   input: {
     width: 100,
     height: 40,
-    margin: 12,
     borderWidth: 1,
-    padding: 10,
   },
-  sliderStyle: {
-    flex: 1,
-  },
+  // sliderStyle: {
+  //   flex: 1,
+  // },
 });
 
 export default Dashboard;

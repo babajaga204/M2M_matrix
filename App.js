@@ -3,6 +3,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SecondPage from './screens/Dashboard';
 import loginPage from './screens/WelcomeScreen';
+import { NativeWindStyleSheet } from "nativewind";
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
+});
 
 const Stack = createStackNavigator();
 
@@ -25,19 +30,19 @@ export default function App() {
           }}
         />
         <Stack.Screen
-        name="SecondPage"
-        component={SecondPage}
-        options={{
-          title: "Connect", //Set Header Title
-          headerStyle: {
-            backgroundColor: "#f4511e", //Set Header color
-          },
-          headerTintColor: "#fff", //Set Header text color
-          headerTitleStyle: {
-            fontWeight: "bold", //Set Header text style
-          },
-        }}
-      />
+          name="SecondPage"
+          component={SecondPage}
+          options={{
+            title: "Connect", //Set Header Title
+            headerStyle: {
+              backgroundColor: "#f4511e", //Set Header color
+            },
+            headerTintColor: "#fff", //Set Header text color
+            headerTitleStyle: {
+              fontWeight: "bold", //Set Header text style
+            },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

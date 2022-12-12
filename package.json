@@ -19,6 +19,7 @@
     "@rneui/themed": "^4.0.0-rc.7",
     "expo": "~47.0.8",
     "expo-status-bar": "~1.4.2",
+    "nativewind": "^2.0.11",
     "react-native": "0.70.5",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-material-kit": "^0.6.0-beta.1",
@@ -31,8 +32,11 @@
     "@babel/core": "^7.12.9",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
+    "autoprefixer": "^10.4.13",
     "eslint-plugin-react": "^7.31.11",
-    "eslint-plugin-react-hooks": "^4.6.0"
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4"
   },
   "private": true
 }
